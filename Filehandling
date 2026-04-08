@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+FILE *fp;
+char text[100];
+char buffer[100];
+/* 1. fopen() - open file for writing */
+fp = fopen("sample.txt","w");
+if(fp == NULL) {
+printf("Error opening file! \n");
+exit(1);
+}
+/* 2. fputs() - Write string to file */
+fputs("Hello Students \n",fp);
+fputs("Welcome to File Handling in C \n",fp);
+/* 3. fwrite() - Write binary data */
+strcpy(text, "This line is written using fwrite \n");
+fwrite(text, sizeof(char) , sizeof(text),fp);
+fclose(fp);
+/* 4. fopen() - Open file for reading */fp = fopen("sample.txt" , "r");
+if(fp == NULL) {
+printf("Error opening file! \n");
+exit(1);
+}
+printf("Reading file using fgets(): \n");
+/* 5. fgets() - Read line by line */
+while(fgets(buffer, sizeof(buffer),fp)!= NULL){
+printf("%s" , buffer);
+}
+/* 6. fseek() - Move file pointer to beginning */
+fseek(fp, 0,SEEK_SET);
+printf("\n Reading file using fread(): \n");
+/* 7. fread() - Read entire file */
+fread(buffer , sizeof(char), sizeof(buffer), fp);
+printf("%s", buffer);
+/* 8. feof() - check end of file */
+if(feof(fp)) {
+printf("\n End of life reached. \n");
+}
+fclose(fp);
+return 0;
+}
